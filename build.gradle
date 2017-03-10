@@ -1,0 +1,39 @@
+buildscript {
+    repositories {
+        jcenter()
+        maven {
+            url "https://plugins.gradle.org/m2"
+        }
+    }
+    dependencies {
+        classpath "gradle.plugin.com.timberglund:asciidoctor-presentation:0.1.1"
+    }
+}
+
+apply plugin: "com.timberglund.presentation.plugin"
+
+presentation {
+    modules {
+        intro {
+            title = "Getting Warmed Up"
+            file = "intro.adoc"
+        }
+        body {
+            title = "Delivering the goods"
+            file = "body.adoc"
+        }
+    }
+}
+
+slides {
+    headers = [
+        deckjs_transition: 'fade',
+        deckjs_theme: 'neon',
+        navigation: '',
+        menu: '',
+        goto: '',
+        split: '',
+    ]
+    title = "Semantic Release"
+    author = "Tobias Schulte"
+}
