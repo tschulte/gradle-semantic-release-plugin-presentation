@@ -1,7 +1,0 @@
-
-== Who am I?
-
-* Tobias Schulte
-* http://twitter.com/tobias_schulte[@tobias_schulte]
-* tobias.schulte@gliderpilot.de
-* http://github.com/tschulte

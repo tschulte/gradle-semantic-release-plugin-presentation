@@ -14,13 +14,9 @@ apply plugin: "com.timberglund.presentation.plugin"
 
 presentation {
     modules {
-        intro {
-            title = "Getting Warmed Up"
-            file = "intro.adoc"
-        }
-        body {
-            title = "Delivering the goods"
-            file = "body.adoc"
+        content {
+            title = "The content"
+            file = "content.adoc"
         }
     }
 }
@@ -28,12 +24,23 @@ presentation {
 slides {
     headers = [
         deckjs_transition: 'fade',
-        deckjs_theme: 'neon',
+        deckjs_theme: 'tschulte',
+        blank: '',
+        scale: '',
         navigation: '',
         menu: '',
         goto: '',
         split: '',
+        status: '',
+        toc: '',
     ]
     title = "Semantic Release"
     author = "Tobias Schulte"
+}
+
+lessc {
+    sourceDir "src/styles"
+    include "**/*.less"
+    destinationDir = "${buildDir}/asciidoc/deckjs/deck.js/themes/style"
+    mustRunAfter slides
 }
