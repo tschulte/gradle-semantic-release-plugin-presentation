@@ -41,6 +41,46 @@ Minor version Y (x.Y.z | x > 0) MUST be incremented if new, backwards compatible
 [quote, SemVer-specification]
 Major version X (X.y.z | X > 0) MUST be incremented if any backwards incompatible changes are introduced to the public API. It MAY include minor and patch level changes. Patch and minor version MUST be reset to 0 when major version is incremented.
 
+== Release notes anyone
+
+image::images/noReleasenotes.png[]
+
+== Use Bugtracker
+
+image::images/glazedlists-automatic-releasenotes.png[]
+
+== Use Commit message conventions ...
+
+image::images/angular-commit-message-convention.png[]
+
+== ... to generate the release notes
+
+image::images/angular-commit-message-convention-annotated.png[]
+
+== Breaking changes sneaking in
+
+image::images/breaking-patch-version.png[]
+
+== Breaking changes sneaking in
+
+image::images/breaking-patch-version-annotated.png[]
+
+== Breaking changes sneaking in
+
+image::images/glazedlists-releasenotes.png[]
+
+== Breaking changes sneaking in
+
+image::images/glazedlists-releasenotes-annotated.png[]
+
+== Breaking changes sneaking in
+
+image::images/glazedlists-upgrade-instructions.png[]
+
+== Breaking changes sneaking in
+
+image::images/glazedlists-upgrade-instructions-annotated.png[]
+
 == http://semver.org/[SemVer] anyone?
 
 [.important.vcenter]
@@ -54,11 +94,20 @@ MAJOR.MINOR.PATCH
 == http://semver.org/[SemVer] anyone?
 
 [.important.vcenter]
-+++BREAKING.FEATURE.PATCH+++
+BREAKING.FEATURE.PATCH
 
+[.notitle]
 == The workflows
 
-=== Version in buildfile(s) (Maven Release Plugin and some Gradle Plugins)
+[.important.vcenter]
+The workflows
+
+== But first
+
+[.important.vcenter]
+What's the new version?
+
+== Version in buildfile(s) (Maven Release Plugin and some Gradle Plugins)
 
 * Remove "-SNAPSHOT"
 * Commit and push
@@ -67,37 +116,29 @@ MAJOR.MINOR.PATCH
 * Increase Version, append SNAPSHOT
 * Commit/Push
 
-=== Version in VCS (the other Gradle Plugins)
+== Version in VCS (the other Gradle Plugins)
 
 * Create and push tag
 * Build/Release
-
-== Releasenotes anyone
-image::images/noReleasenotes.png[]
-
-== Breaking changes sneaking in
-image::images/breaking-patch-version.png[]
 
 == And then?
 
 === Write Release Notes
 === Twitter
-=== yo
 
-=== ya
-
-== The bad
+[.notitle]
+== But
 
 == Semantic Release
 image::images/boennemann1.png[]
 
-[canvas-image=images/empty.png]
+[.notitle]
 == Hauptversionsnummernerhoehungsangst
 
 [.important.vcenter]
 Hauptversionsnummern-erhöhungsangst
 
-[canvas-image=images/empty.png]
+[.notitle]
 == Demo
 
 [.important.vcenter]
