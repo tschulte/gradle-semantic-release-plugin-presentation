@@ -7,6 +7,31 @@
 * tobias.schulte@gliderpilot.de
 * https://github.com/tschulte
 
+[.notitle]
+== The workflows
+
+[.important.vcenter]
+The workflows
+
+== Version in buildfile(s) (Maven Release Plugin and some Gradle Plugins)
+
+* Remove "-SNAPSHOT"
+* Commit and push
+* Create and push tag
+* Build/Release
+* Increase Version, append SNAPSHOT
+* Commit/Push
+
+== Version in VCS (the other Gradle Plugins)
+
+* Create and push tag
+* Build/Release
+
+== But first
+
+[.important.vcenter]
+What's the new version?
+
 == Versioning Schemes
 
 === ${major}
@@ -34,12 +59,33 @@ Patch version Z (x.y.Z | x > 0) MUST be incremented if only backwards compatible
 == Minor
 
 [quote, SemVer-specification]
-Minor version Y (x.Y.z | x > 0) MUST be incremented if new, backwards compatible functionality is introduced to the public API. It MUST be incremented if any public API functionality is marked as deprecated. It MAY be incremented if substantial new functionality or improvements are introduced within the private code. It MAY include patch level changes. Patch version MUST be reset to 0 when minor version is incremented.
+Minor version Y (x.Y.z | x > 0) MUST be incremented if new, backwards compatible functionality is introduced to the public API.
+
+== Minor
+
+[quote, SemVer-specification]
+It MUST be incremented if any public API functionality is marked as deprecated.
+
+== Minor
+
+[quote, SemVer-specification]
+It MAY be incremented if substantial new functionality or improvements are introduced within the private code. It MAY include patch level changes. Patch version MUST be reset to 0 when minor version is incremented.
 
 == Major
 
 [quote, SemVer-specification]
 Major version X (X.y.z | X > 0) MUST be incremented if any backwards incompatible changes are introduced to the public API. It MAY include minor and patch level changes. Patch and minor version MUST be reset to 0 when major version is incremented.
+
+== http://semver.org/[SemVer] anyone?
+
+[.important.hcenter]
+--
++++<del>MAJOR</del>.<del>MINOR</del>.PATCH+++
+
+=>
+
+BREAKING.FEATURE.PATCH
+--
 
 == Release notes anyone
 
@@ -81,54 +127,6 @@ image::images/glazedlists-upgrade-instructions.png[]
 
 image::images/glazedlists-upgrade-instructions-annotated.png[]
 
-== http://semver.org/[SemVer] anyone?
-
-[.important.vcenter]
-MAJOR.MINOR.PATCH
-
-== http://semver.org/[SemVer] anyone?
-
-[.important.vcenter]
-+++<del>MAJOR</del>.<del>MINOR</del>.PATCH+++
-
-== http://semver.org/[SemVer] anyone?
-
-[.important.vcenter]
-BREAKING.FEATURE.PATCH
-
-[.notitle]
-== The workflows
-
-[.important.vcenter]
-The workflows
-
-== But first
-
-[.important.vcenter]
-What's the new version?
-
-== Version in buildfile(s) (Maven Release Plugin and some Gradle Plugins)
-
-* Remove "-SNAPSHOT"
-* Commit and push
-* Create and push tag
-* Build/Release
-* Increase Version, append SNAPSHOT
-* Commit/Push
-
-== Version in VCS (the other Gradle Plugins)
-
-* Create and push tag
-* Build/Release
-
-== And then?
-
-=== Write Release Notes
-=== Twitter
-
-[.notitle]
-== But
-
 == Semantic Release
 image::images/boennemann1.png[]
 
@@ -136,7 +134,7 @@ image::images/boennemann1.png[]
 == Hauptversionsnummernerhoehungsangst
 
 [.important.vcenter]
-Hauptversionsnummern-erhöhungsangst
+Hauptversions-nummern-erhöhungsangst
 
 [.notitle]
 == Demo
