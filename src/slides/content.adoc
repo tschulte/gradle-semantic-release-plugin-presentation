@@ -13,19 +13,35 @@
 [.important.vcenter]
 The workflows
 
-== Version in buildfile(s) (Maven Release Plugin and some Gradle Plugins)
+== Version in buildfile(s)
 
-* Remove "-SNAPSHOT"
-* Commit and push
-* Create and push tag
-* Build/Release
-* Increase Version, append SNAPSHOT
-* Commit/Push
+* Developer: trigger CI (optional parameters)
+* CI: Build (check if it's working)
+* CI: Remove "-SNAPSHOT"
+* CI: Commit and push
+* CI: Create and push tag
+* CI: Build and publish artefacts
+* CI: Increase Version, append SNAPSHOT
+* CI: Commit/Push
 
-== Version in VCS (the other Gradle Plugins)
+=== => Maven Release Plugin and some Gradle Plugins
 
-* Create and push tag
-* Build/Release
+== Version in VCS
+
+=== Developer creates tag
+
+* Developer: create and push tag
+* CI: Build tagged version
+* CI: Publish artefacts
+
+=== CI creates tag
+
+* Developer: trigger CI (optional parameters)
+* CI: Build version
+* CI: Create and push tag
+* CI: Publish artefacts
+
+=== => the other Gradle Plugins
 
 == But first
 
