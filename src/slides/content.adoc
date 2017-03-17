@@ -162,3 +162,18 @@ Demo
 == Demo
 
 video::images/demo.mp4[]
+
+== Default Features
+
+=== Version is inferred using the last tag (if any) and the commit messages
+=== Only creates new version if any feature or fix commit
+=== No tag yet => v1.0.0
+=== Only fixes => increment PATCH
+=== Any features => increment +++<del>MINOR</del>+++ FEATURE
+=== Any breaking features => increment +++<del>MAJOR</del>+++ BREAKING
+
+== Default Branches
+
+=== master
+=== release/1.2.x
+=== release/1.x
