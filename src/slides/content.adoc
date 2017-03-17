@@ -62,11 +62,6 @@ What's the new version?
 [.important.vcenter]
 MAJOR.MINOR.PATCH
 
-== 0.x Versions?
-
-[quote, SemVer-specification]
-Major version zero (0.y.z) is for initial development. Anything may change at any time. The public API should not be considered stable.
-
 == Patch
 
 [quote, SemVer-specification]
@@ -102,6 +97,11 @@ Major version X (X.y.z | X > 0) MUST be incremented if any backwards incompatibl
 
 BREAKING.FEATURE.PATCH
 --
+
+== 0.x Versions?
+
+[quote, SemVer-specification]
+Major version zero (0.y.z) is for initial development. Anything may change at any time. The public API should not be considered stable.
 
 == Release notes anyone
 
