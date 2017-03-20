@@ -15,31 +15,28 @@ The workflows
 
 == Version in buildfile(s)
 
-* Developer: trigger CI (optional parameters)
-* CI: Build (check if it's working)
-* CI: Remove "-SNAPSHOT"
-* CI: Commit and push
-* CI: Create and push tag
-* CI: Build and publish artefacts
-* CI: Increase Version, append SNAPSHOT
-* CI: Commit/Push
+Developer triggers CI (optional parameters)
+
+* Build (check if it's working)
+* Remove "-SNAPSHOT"
+* Commit and push
+* Create and push tag
+* Increase Version, append SNAPSHOT
+* Commit/Push
+* Checkout tag
+* Build version
+* Publish artefacts
+* Checkout branch head
 
 === => Maven Release Plugin and some Gradle Plugins
 
 == Version in VCS
 
-=== Developer creates tag
+Developer triggers CI (optional parameters)
 
-* Developer: create and push tag
-* CI: Build tagged version
-* CI: Publish artefacts
-
-=== CI creates tag
-
-* Developer: trigger CI (optional parameters)
-* CI: Build version
-* CI: Create and push tag
-* CI: Publish artefacts
+* Build version
+* Create and push tag
+* Publish artefacts
 
 === => the other Gradle Plugins
 
@@ -50,12 +47,15 @@ What's the new version?
 
 == Versioning Schemes
 
-=== ${major}
-=== ${major}.${minor}
-=== ${major}.${minor}.${patch}
-=== ${major}.${minor}.${patch}.${qualifier}
-=== (${major}.${minor}.${patch}-RCx)
-=== (${major}.${minor}.${patch}-FINAL)
+* ${major}
+* ${major}.${minor}
+* ${major}.${minor}.${patch}
+* ${major}.${minor}.${patch}.${qualifier}
+* ${major}.${minor}.${patch}-RCx
+* ${major}.${minor}.${patch}-FINAL
+* TeX
+* Windows
+* https://en.wikipedia.org/wiki/Software_versioning[...]
 
 == http://semver.org/[SemVer] anyone?
 
@@ -115,11 +115,11 @@ image::images/glazedlists-automatic-releasenotes.png[]
 
 image::images/angular-commit-message-convention.png[]
 
-== ... to generate the release notes
+== ... to generate ...
 
 image::images/angular-commit-message-convention-annotated.png[]
 
-== Breaking changes sneaking in
+== ... the release notes
 
 image::images/breaking-patch-version.png[]
 
@@ -150,7 +150,7 @@ image::images/boennemann1.png[]
 == Hauptversionsnummernerhoehungsangst
 
 [.important.vcenter]
-Hauptversions-nummern-erhöhungsangst
+Hauptversionsnummern-erhöhungsangst
 
 [.notitle]
 == Demo
