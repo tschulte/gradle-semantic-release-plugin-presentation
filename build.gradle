@@ -50,7 +50,7 @@ slides {
         deckjs_theme: 'tschulte',
         blank: '',
         scale: '',
-//        navigation: '',
+        navigation: '',
         menu: '',
         goto: '',
         split: '',
