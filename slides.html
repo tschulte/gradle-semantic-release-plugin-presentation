@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+<meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible" />
+<meta content="Asciidoctor 1.5.2" name="generator" />
+<meta content="Tobias Schulte" name="author" />
+<title>Semantic Release</title>
+<style>
+/* Stylesheet for CodeRay to match GitHub theme | MIT License | http://foundation.zurb.com */
+/*pre.CodeRay {background-color:#f7f7f8;}*/
+.CodeRay .line-numbers{border-right:1px solid #d8d8d8;padding:0 0.5em 0 .25em}
+.CodeRay span.line-numbers{display:inline-block;margin-right:.5em;color:rgba(0,0,0,.3)}
+.CodeRay .line-numbers strong{font-weight: normal}
+table.CodeRay{border-collapse:separate;border-spacing:0;margin-bottom:0;border:0;background:none}
+table.CodeRay td{vertical-align: top}
+table.CodeRay td.line-numbers{text-align:right}
+table.CodeRay td.line-numbers>pre{padding:0;color:rgba(0,0,0,.3)}
+table.CodeRay td.code{padding:0 0 0 .5em}
+table.CodeRay td.code>pre{padding:0}
+.CodeRay .debug{color:#fff !important;background:#000080 !important}
+.CodeRay .annotation{color:#007}
+.CodeRay .attribute-name{color:#000080}
+.CodeRay .attribute-value{color:#700}
+.CodeRay .binary{color:#509}
+.CodeRay .comment{color:#998;font-style:italic}
+.CodeRay .char{color:#04d}
+.CodeRay .char .content{color:#04d}
+.CodeRay .char .delimiter{color:#039}
+.CodeRay .class{color:#458;font-weight:bold}
+.CodeRay .complex{color:#a08}
+.CodeRay .constant,.CodeRay .predefined-constant{color:#008080}
+.CodeRay .color{color:#099}
+.CodeRay .class-variable{color:#369}
+.CodeRay .decorator{color:#b0b}
+.CodeRay .definition{color:#099}
+.CodeRay .delimiter{color:#000}
+.CodeRay .doc{color:#970}
+.CodeRay .doctype{color:#34b}
+.CodeRay .doc-string{color:#d42}
+.CodeRay .escape{color:#666}
+.CodeRay .entity{color:#800}
+.CodeRay .error{color:#808}
+.CodeRay .exception{color:inherit}
+.CodeRay .filename{color:#099}
+.CodeRay .function{color:#900;font-weight:bold}
+.CodeRay .global-variable{color:#008080}
+.CodeRay .hex{color:#058}
+.CodeRay .integer,.CodeRay .float{color:#099}
+.CodeRay .include{color:#555}
+.CodeRay .inline{color:#00}
+.CodeRay .inline .inline{background:#ccc}
+.CodeRay .inline .inline .inline{background:#bbb}
+.CodeRay .inline .inline-delimiter{color:#d14}
+.CodeRay .inline-delimiter{color:#d14}
+.CodeRay .important{color:#555;font-weight:bold}
+.CodeRay .interpreted{color:#b2b}
+.CodeRay .instance-variable{color:#008080}
+.CodeRay .label{color:#970}
+.CodeRay .local-variable{color:#963}
+.CodeRay .octal{color:#40e}
+.CodeRay .predefined{color:#369}
+.CodeRay .preprocessor{color:#579}
+.CodeRay .pseudo-class{color:#555}
+.CodeRay .directive{font-weight:bold}
+.CodeRay .type{font-weight:bold}
+.CodeRay .predefined-type{color:inherit}
+.CodeRay .reserved,.CodeRay .keyword {color:#000;font-weight:bold}
+.CodeRay .key{color:#808}
+.CodeRay .key .delimiter{color:#606}
+.CodeRay .key .char{color:#80f}
+.CodeRay .value{color:#088}
+.CodeRay .regexp .delimiter{color:#808}
+.CodeRay .regexp .content{color:#808}
+.CodeRay .regexp .modifier{color:#808}
+.CodeRay .regexp .char{color:#d14}
+.CodeRay .regexp .function{color:#404;font-weight:bold}
+.CodeRay .string{color:#d20}
+.CodeRay .string .string .string{background:#ffd0d0}
+.CodeRay .string .content{color:#d14}
+.CodeRay .string .char{color:#d14}
+.CodeRay .string .delimiter{color:#d14}
+.CodeRay .shell{color:#d14}
+.CodeRay .shell .delimiter{color:#d14}
+.CodeRay .symbol{color:#990073}
+.CodeRay .symbol .content{color:#a60}
+.CodeRay .symbol .delimiter{color:#630}
+.CodeRay .tag{color:#008080}
+.CodeRay .tag-special{color:#d70}
+.CodeRay .variable{color:#036}
+.CodeRay .insert{background:#afa}
+.CodeRay .delete{background:#faa}
+.CodeRay .change{color:#aaf;background:#007}
+.CodeRay .head{color:#f8f;background:#505}
+.CodeRay .insert .insert{color:#080}
+.CodeRay .delete .delete{color:#800}
+.CodeRay .change .change{color:#66f}
+.CodeRay .head .head{color:#f4f}
+</style>
+<link href="deck.js/core/deck.core.css" rel="stylesheet" />
+<link href="deck.js/extensions/scale/deck.scale.css" media="screen" rel="stylesheet" />
+<link href="deck.js/extensions/goto/deck.goto.css" media="screen" rel="stylesheet" />
+<link href="deck.js/extensions/menu/deck.menu.css" media="screen" rel="stylesheet" />
+<link href="deck.js/extensions/status/deck.status.css" media="screen" rel="stylesheet" />
+<link href="deck.js/extensions/toc/deck.toc.css" media="screen" rel="stylesheet" />
+<link href="deck.js/themes/style/tschulte.css" media="screen" rel="stylesheet" />
+<link href="deck.js/themes/transition/fade.css" media="screen" rel="stylesheet" />
+<link href="deck.js/core/print.css" media="print" rel="stylesheet" />
+<script src="deck.js/modernizr.custom.js"></script>
+</head>
+<body class="article">
+<div class="deck-container">
+<section class="slide" id="title-slide">
+<h1>Semantic Release</h1>
+<span id="author">Tobias Schulte</span>
+<br />
+</section>
+<section class="slide" id="who-am-i">
+<h2>Who am I?</h2>
+<div class="ulist">
+<ul>
+<li>Java developer since 2001</li>
+<li>Team Lead at <a href="https://www.kratzer-automation.com/">Kratzer Automation AG</a></li>
+<li><a href="http://twitter.com/tobias_schulte">@tobias_schulte</a></li>
+<li><a href="mailto:tobias.schulte@gliderpilot.de">tobias.schulte@gliderpilot.de</a></li>
+<li><a class="bare" href="https://github.com/tschulte">https://github.com/tschulte</a></li>
+</ul>
+</div>
+</section>
+<section class="notitle slide" id="the-workflows">
+<h2>The workflows</h2>
+<div class="paragraph important vcenter"><p>The workflows</p></div>
+</section>
+<section class="slide" id="version-in-buildfile-s">
+<h2>Version in buildfile(s)</h2>
+<div class="paragraph"><p>Developer triggers CI (optional parameters)</p></div>
+<div class="ulist">
+<ul>
+<li>Build (check if it&#8217;s working)</li>
+<li>Remove "-SNAPSHOT"</li>
+<li>Commit and push</li>
+<li>Create and push tag</li>
+<li>Increase Version, append SNAPSHOT</li>
+<li>Commit/Push</li>
+<li>Checkout tag</li>
+<li>Build version</li>
+<li>Publish artefacts</li>
+<li>Checkout branch head</li>
+</ul>
+</div>
+<section class="slide" id="maven-release-plugin-and-some-gradle-plugins">
+<h2>&#8658; Maven Release Plugin and some Gradle Plugins</h2>
+
+</section>
+</section>
+<section class="slide" id="version-in-vcs">
+<h2>Version in VCS</h2>
+<div class="paragraph"><p>Developer triggers CI (optional parameters)</p></div>
+<div class="ulist">
+<ul>
+<li>Build version</li>
+<li>Create and push tag</li>
+<li>Publish artefacts</li>
+</ul>
+</div>
+<section class="slide" id="the-other-gradle-plugins">
+<h2>&#8658; the other Gradle Plugins</h2>
+
+</section>
+</section>
+<section class="slide" id="but-first">
+<h2>But first</h2>
+<div class="paragraph important vcenter"><p>What&#8217;s the new version?</p></div>
+</section>
+<section class="slide" id="versioning-schemes">
+<h2>Versioning Schemes</h2>
+<div class="ulist">
+<ul>
+<li>${major}</li>
+<li>${major}.${minor}</li>
+<li>${major}.${minor}.${patch}</li>
+<li>${major}.${minor}.${patch}.${qualifier}</li>
+<li>${major}.${minor}.${patch}-RCx</li>
+<li>${major}.${minor}.${patch}-FINAL</li>
+<li>TeX</li>
+<li>Windows</li>
+<li><a href="https://en.wikipedia.org/wiki/Software_versioning">&#8230;&#8203;</a></li>
+</ul>
+</div>
+</section>
+<section class="slide" id="a-href-http-semver-org-semver-a-anyone">
+<h2><a href="http://semver.org/">SemVer</a> anyone?</h2>
+<div class="paragraph important vcenter"><p>MAJOR.MINOR.PATCH</p></div>
+</section>
+<section class="slide" id="patch">
+<h2>Patch</h2>
+<div class="quoteblock">
+<blockquote>
+Patch version Z (x.y.Z | x &gt; 0) MUST be incremented if only backwards compatible bug fixes are introduced. A bug fix is defined as an internal change that fixes incorrect behavior.
+<div class="attribution">
+<cite>SemVer-specification</cite>
+</div>
+</blockquote>
+</div>
+</section>
+<section class="slide" id="minor">
+<h2>Minor</h2>
+<div class="quoteblock">
+<blockquote>
+Minor version Y (x.Y.z | x &gt; 0) MUST be incremented if new, backwards compatible functionality is introduced to the public API.
+<div class="attribution">
+<cite>SemVer-specification</cite>
+</div>
+</blockquote>
+</div>
+</section>
+<section class="slide" id="minor-2">
+<h2>Minor</h2>
+<div class="quoteblock">
+<blockquote>
+It MUST be incremented if any public API functionality is marked as deprecated.
+<div class="attribution">
+<cite>SemVer-specification</cite>
+</div>
+</blockquote>
+</div>
+</section>
+<section class="slide" id="minor-3">
+<h2>Minor</h2>
+<div class="quoteblock">
+<blockquote>
+It MAY be incremented if substantial new functionality or improvements are introduced within the private code. It MAY include patch level changes. Patch version MUST be reset to 0 when minor version is incremented.
+<div class="attribution">
+<cite>SemVer-specification</cite>
+</div>
+</blockquote>
+</div>
+</section>
+<section class="slide" id="major">
+<h2>Major</h2>
+<div class="quoteblock">
+<blockquote>
+Major version X (X.y.z | X &gt; 0) MUST be incremented if any backwards incompatible changes are introduced to the public API. It MAY include minor and patch level changes. Patch and minor version MUST be reset to 0 when major version is incremented.
+<div class="attribution">
+<cite>SemVer-specification</cite>
+</div>
+</blockquote>
+</div>
+</section>
+<section class="slide" id="a-href-http-semver-org-semver-a-anyone-2">
+<h2><a href="http://semver.org/">SemVer</a> anyone?</h2>
+<div class="openblock important hcenter">
+<div class="content">
+<div class="paragraph"><p><del>MAJOR</del>.<del>MINOR</del>.PATCH</p></div>
+<div class="paragraph"><p>&#8658;</p></div>
+<div class="paragraph"><p>BREAKING.FEATURE.PATCH</p></div>
+</div>
+</div>
+</section>
+<section class="slide" id="0-x-versions">
+<h2>0.x Versions?</h2>
+<div class="quoteblock">
+<blockquote>
+Major version zero (0.y.z) is for initial development. Anything may change at any time. The public API should not be considered stable.
+<div class="attribution">
+<cite>SemVer-specification</cite>
+</div>
+</blockquote>
+</div>
+</section>
+<section class="slide" id="release-notes-anyone">
+<h2>Release notes anyone</h2>
+<div class="imageblock">
+<div class="content">
+<img alt="noReleasenotes" src="images/noReleasenotes.png" />
+</div>
+</div>
+</section>
+<section class="slide" id="use-bugtracker">
+<h2>Use Bugtracker</h2>
+<div class="imageblock">
+<div class="content">
+<img alt="glazedlists automatic releasenotes" src="images/glazedlists-automatic-releasenotes.png" />
+</div>
+</div>
+</section>
+<section class="slide" id="use-commit-message-conventions">
+<h2>Use Commit message conventions &#8230;&#8203;</h2>
+<div class="imageblock">
+<div class="content">
+<img alt="angular commit message convention" src="images/angular-commit-message-convention.png" />
+</div>
+</div>
+</section>
+<section class="slide" id="to-generate">
+<h2>&#8230;&#8203; to generate &#8230;&#8203;</h2>
+<div class="imageblock">
+<div class="content">
+<img alt="angular commit message convention annotated" src="images/angular-commit-message-convention-annotated.png" />
+</div>
+</div>
+</section>
+<section class="slide" id="the-release-notes">
+<h2>&#8230;&#8203; the release notes</h2>
+<div class="imageblock">
+<div class="content">
+<img alt="breaking patch version" src="images/breaking-patch-version.png" />
+</div>
+</div>
+</section>
+<section class="slide" id="breaking-changes-sneaking-in">
+<h2>Breaking changes sneaking in</h2>
+<div class="imageblock">
+<div class="content">
+<img alt="breaking patch version annotated" src="images/breaking-patch-version-annotated.png" />
+</div>
+</div>
+</section>
+<section class="slide" id="breaking-changes-sneaking-in-2">
+<h2>Breaking changes sneaking in</h2>
+<div class="imageblock">
+<div class="content">
+<img alt="glazedlists releasenotes" src="images/glazedlists-releasenotes.png" />
+</div>
+</div>
+</section>
+<section class="slide" id="breaking-changes-sneaking-in-3">
+<h2>Breaking changes sneaking in</h2>
+<div class="imageblock">
+<div class="content">
+<img alt="glazedlists releasenotes annotated" src="images/glazedlists-releasenotes-annotated.png" />
+</div>
+</div>
+</section>
+<section class="slide" id="breaking-changes-sneaking-in-4">
+<h2>Breaking changes sneaking in</h2>
+<div class="imageblock">
+<div class="content">
+<img alt="glazedlists upgrade instructions" src="images/glazedlists-upgrade-instructions.png" />
+</div>
+</div>
+</section>
+<section class="slide" id="breaking-changes-sneaking-in-5">
+<h2>Breaking changes sneaking in</h2>
+<div class="imageblock">
+<div class="content">
+<img alt="glazedlists upgrade instructions annotated" src="images/glazedlists-upgrade-instructions-annotated.png" />
+</div>
+</div>
+</section>
+<section class="slide" id="semantic-release">
+<h2>Semantic Release</h2>
+<div class="imageblock">
+<div class="content">
+<img alt="boennemann1" src="images/boennemann1.png" />
+</div>
+</div>
+</section>
+<section class="notitle slide" id="hauptversionsnummernerhoehungsangst">
+<h2>Hauptversionsnummernerhoehungsangst</h2>
+<div class="paragraph important vcenter"><p>Hauptversions-nummern-erhöhungsangst</p></div>
+</section>
+<section class="notitle slide" id="demo">
+<h2>Demo</h2>
+<div class="paragraph important vcenter"><p>Demo</p></div>
+</section>
+<section class="notitle slide" id="demo-2">
+<h2>Demo</h2>
+<div class="videoblock">
+<video controls="controls" src="images/demo.mp4">
+Your browser does not support the video tag.
+</video>
+</div>
+</section>
+<section class="slide" id="how-does-it-work">
+<h2>How does it work</h2>
+<section class="slide" id="version-is-inferred-using-the-last-tag-if-any-and-the-commit-messages">
+<h2>Version is inferred using the last tag (if any) and the commit messages</h2>
+
+</section>
+<section class="slide" id="only-creates-new-version-if-any-feature-or-fix-commit">
+<h2>Only creates new version if any feature or fix commit</h2>
+
+</section>
+<section class="slide" id="no-tag-yet-v1-0-0">
+<h2>No tag yet &#8658; v1.0.0</h2>
+
+</section>
+<section class="slide" id="only-fixes-increment-patch">
+<h2>Only fixes &#8658; increment PATCH</h2>
+
+</section>
+<section class="slide" id="any-features-increment-del-minor-del-feature">
+<h2>Any features &#8658; increment <del>MINOR</del> FEATURE</h2>
+
+</section>
+<section class="slide" id="any-breaking-features-increment-del-major-del-breaking">
+<h2>Any breaking features &#8658; increment <del>MAJOR</del> BREAKING</h2>
+
+</section>
+</section>
+<section class="slide" id="default-branches">
+<h2>Default Branches</h2>
+<section class="slide" id="master">
+<h2>master</h2>
+
+</section>
+<section class="slide" id="release-1-2-x">
+<h2>release/1.2.x</h2>
+
+</section>
+<section class="slide" id="release-1-x">
+<h2>release/1.x</h2>
+
+</section>
+</section>
+<section class="slide" id="remember-this">
+<h2>Remember this?</h2>
+<div class="paragraph"><p>Developer triggers CI <del>(optional parameters)</del></p></div>
+<div class="ulist">
+<ul>
+<li>Build version</li>
+<li>Create and push tag</li>
+<li>Publish artefacts</li>
+</ul>
+</div>
+</section>
+<section class="slide" id="possible-workflows">
+<h2>Possible workflows</h2>
+<section class="slide" id="work-on-master-every-push-triggers-new-version">
+<h2>Work on master &#8658; every push triggers new version</h2>
+
+</section>
+<section class="slide" id="git-flow-github-flow-etc-merge-to-master-or-release-1-x-triggers-new-version">
+<h2>Git-Flow, GitHub-Flow, etc. &#8658; merge to master (or release/1.x) triggers new version</h2>
+
+</section>
+<section class="slide" id="rcx-versions">
+<h2>(RCx-versions)</h2>
+
+</section>
+</section>
+<p aria-role="status" class="deck-status">
+<span class="deck-status-current"></span>
+/
+<span class="deck-status-total"></span>
+</p>
+<form action="." class="goto-form" method="get">
+<label for="goto-slide">Go to Slide:</label>
+<input id="goto-slide" list="goto-datalist" name="slidenum" type="text" />
+<datalist id="goto-data-list"></datalist>
+<input type="submit" value="Go" />
+</form>
+</div>
+<script src="deck.js/jquery.min.js"></script>
+<script src="deck.js/core/deck.core.js"></script>
+<script src="deck.js/extensions/scale/deck.scale.js"></script>
+<script src="deck.js/extensions/blank/deck.blank.js"></script>
+<script src="deck.js/extensions/goto/deck.goto.js"></script>
+<script src="deck.js/extensions/menu/deck.menu.js"></script>
+<script src="deck.js/extensions/split/deck.split.js"></script>
+<script src="deck.js/extensions/status/deck.status.js"></script>
+<script src="deck.js/extensions/toc/deck.toc.js"></script>
+<div class="deck-toc"></div>
+<script type="text/javascript">
+  //<![CDATA[
+    (function($, deck, undefined) {
+      $.deck.defaults.keys['previous'] = [8, 33, 37, 39];
+      $.deck.defaults.keys['next'] = [13, 32, 34, 39];
+    
+      $.extend(true, $[deck].defaults, {
+          countNested: false
+      });
+    
+      $.deck('.slide');
+    })(jQuery, 'deck');
+  //]]>
+</script>
+<style type="text/css">
+  /*<![CDATA[*/
+    .slide.canvas-image {
+    -moz-background-size: cover;
+    -webkit-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    display: -moz-box;
+    display: -webkit-box;
+    display: -ms-box;
+    display: box;
+    -moz-box-orient: vertical;
+    -webkit-box-orient: vertical;
+    -ms-box-orient: vertical;
+    box-orient: vertical;
+    -moz-box-align: start;
+    -webkit-box-align: start;
+    -ms-box-align: start;
+    box-align: start;
+    -moz-box-pack: start;
+    -webkit-box-pack: start;
+    -ms-box-pack: start;
+    box-pack: start;}
+    
+    .bottom-left {
+      left: 1%;
+      bottom: 20%; }
+    
+    .top-left {
+      left: 1%;
+      top: 20%; }
+    
+    .bottom-right {
+      right: 1%;
+      bottom: 20%; }
+    
+    .top-right {
+      right: 1%;
+      top: 20%; }
+    
+    .center-up {
+      right: 50%;
+      top: 1%;
+    }
+    
+    .center-down {
+      right: 50%;
+      bottom: 1%;
+    }
+    .canvas-image .canvas-caption p {
+      text-align: center;
+      padding-top: 0;
+      padding: 0;
+      -moz-transform: none;
+      -webkit-transform: none;
+      -o-transform: none;
+      -ms-transform: none;
+      transform: none;
+      display: inline;
+      position: absolute;
+      background-color: rgba(0, 0, 0, 0.7);
+      font-weight: bold;
+      font-size: 58px;
+      -webkit-box-shadow: 2px 2px 2px #000;
+      -moz-box-shadow: 2px 2px 2px #000;
+      box-shadow: 2px 2px 2px #000;
+      padding: 1rem;
+      color: white; }
+    kbd.keyseq { color: #555555; }
+    kbd:not(.keyseq) {
+      display: inline-block;
+      color: #222222;
+      font-size: 0.7em;
+      line-height: 1.4;
+      background-color: #F7F7F7;
+      border: 1px solid #ccc;
+      -webkit-border-radius: 3px;
+      border-radius: 3px;
+      -webkit-box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2), 0 0 0 2px white inset;
+      box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2), 0 0 0 2px white inset;
+      margin: -0.15em 0.15em 0 0.15em;
+      padding: 0.2em 0.6em;
+      vertical-align: middle;
+      white-space: nowrap;
+    }
+    kbd kbd:first-child { margin-left: 0; }
+    kbd kbd:last-child { margin-right: 0; }
+  /*]]>*/
+</style>
+</body>
+</html>
