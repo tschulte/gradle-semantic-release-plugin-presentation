@@ -48,14 +48,11 @@ slides {
     headers = [
         deckjs_transition: 'fade',
         deckjs_theme: 'tschulte',
-        blank: '',
         scale: '',
         navigation: '',
         menu: '',
         goto: '',
-        split: '',
         status: '',
-        toc: '',
     ]
     title = "Semantic Release"
     author = "Tobias Schulte"
