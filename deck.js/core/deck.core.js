@@ -318,12 +318,11 @@ that use the API provided by core.
   var setupHashBehaviors = function() {
     $fragmentLinks = $();
     $.each(slides, function(i, $slide) {
-      var hash, altHash;
+      var hash;
 
       assignSlideId(i, $slide);
       hash = '#' + $slide.attr('id');
-      altHash = '#/' + $slide.attr('id');
-      if (hash === window.location.hash || altHash === window.location.hash) {
+      if (hash === window.location.hash) {
         setTimeout(function() {
           $.deck('go', i);
         }, 1);
@@ -400,10 +399,6 @@ that use the API provided by core.
       initSlidesArray(options.selectors.slides);
       // Pre init event for preprocessing hooks
       beforeInitEvent.done = function() {
-        // reInitSlidesArray is meant only for beforeInit
-        methods['reInitSlidesArray'] = function() {
-            alert('Deck.js method "reInitSlidesArray" is meant to be called in the beforeInit phase only.');
-        }
         // re-populate the array of slides
         slides = [];
         initSlidesArray(options.selectors.slides);
@@ -421,9 +416,10 @@ that use the API provided by core.
         $document.trigger(events.initialize);
       };
 
-      beforeInitEvent.lockInit();
       $document.trigger(beforeInitEvent);
-      beforeInitEvent.releaseInit();
+      if (!beforeInitEvent.locks) {
+        beforeInitEvent.done();
+      }
       window.setTimeout(function() {
         if (beforeInitEvent.locks) {
           if (window.console) {
@@ -434,19 +430,6 @@ that use the API provided by core.
           beforeInitEvent.done();
         }
       }, options.initLockTimeout);
-    },
-
-    /*
-    jQuery.deck('reInitSlidesArray')
-    
-    Force a recomputation of the "slides" array. This method is meant
-    to be used by extensions that generate new slides in the
-    beforeInit phase.
-    */
-
-    reInitSlidesArray: function() {
-        slides = [];
-        initSlidesArray(options.selectors.slides);
     },
 
     /*
@@ -623,12 +606,7 @@ that use the API provided by core.
       return methods[method].apply(this, args);
     }
     else {
-      if (window.defaultDeckCallIsAnError) {
-        alert("'" + method + "' not found (or meant to be a parameter-less init)");
-      }
-      else {
-        return methods.init(method, arg);
-      }
+      return methods.init(method, arg);
     }
   };
 
