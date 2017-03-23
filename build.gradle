@@ -11,6 +11,26 @@ buildscript {
 }
 
 apply plugin: "com.timberglund.presentation.plugin"
+apply plugin: 'application'
+
+repositories {
+    jcenter()
+}
+dependencies {
+    runtime 'me.champeau.deck2pdf:deck2pdf:0.3.0'
+}
+
+mainClassName = "me.champeau.deck2pdf.Main"
+run {
+    inputs.dir "src"
+    outputs.file "$buildDir/slides.pdf"
+    dependsOn tasks.presentation
+    args "$buildDir/asciidoc/deckjs/slides.html", "$buildDir/slides.pdf"
+}
+
+task pdf {
+    dependsOn run
+}
 
 presentation {
     modules {
