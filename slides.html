@@ -101,8 +101,8 @@ table.CodeRay td.code>pre{padding:0}
 <link href="deck.js/extensions/scale/deck.scale.css" media="screen" rel="stylesheet" />
 <link href="deck.js/extensions/goto/deck.goto.css" media="screen" rel="stylesheet" />
 <link href="deck.js/extensions/menu/deck.menu.css" media="screen" rel="stylesheet" />
+<link href="deck.js/extensions/navigation/deck.navigation.css" media="screen" rel="stylesheet" />
 <link href="deck.js/extensions/status/deck.status.css" media="screen" rel="stylesheet" />
-<link href="deck.js/extensions/toc/deck.toc.css" media="screen" rel="stylesheet" />
 <link href="deck.js/themes/style/tschulte.css" media="screen" rel="stylesheet" />
 <link href="deck.js/themes/transition/fade.css" media="screen" rel="stylesheet" />
 <link href="deck.js/core/print.css" media="print" rel="stylesheet" />
@@ -440,6 +440,10 @@ Your browser does not support the video tag.
 
 </section>
 </section>
+<div aria-role="navigation">
+<a class="deck-prev-link" href="#" title="Previous">&#8592;</a>
+<a class="deck-next-link" href="#" title="Next">&#8594;</a>
+</div>
 <p aria-role="status" class="deck-status">
 <span class="deck-status-current"></span>
 /
@@ -455,13 +459,10 @@ Your browser does not support the video tag.
 <script src="deck.js/jquery.min.js"></script>
 <script src="deck.js/core/deck.core.js"></script>
 <script src="deck.js/extensions/scale/deck.scale.js"></script>
-<script src="deck.js/extensions/blank/deck.blank.js"></script>
 <script src="deck.js/extensions/goto/deck.goto.js"></script>
 <script src="deck.js/extensions/menu/deck.menu.js"></script>
-<script src="deck.js/extensions/split/deck.split.js"></script>
+<script src="deck.js/extensions/navigation/deck.navigation.js"></script>
 <script src="deck.js/extensions/status/deck.status.js"></script>
-<script src="deck.js/extensions/toc/deck.toc.js"></script>
-<div class="deck-toc"></div>
 <script type="text/javascript">
   //<![CDATA[
     (function($, deck, undefined) {
