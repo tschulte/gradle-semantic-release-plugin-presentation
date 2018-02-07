@@ -1,3 +1,5 @@
+import com.timberglund.gradle.plugin.asciidoctor.FrameworkTask
+
 buildscript {
     repositories {
         jcenter()
@@ -35,6 +37,54 @@ task pdf {
     dependsOn run
 }
 
+def customextensions =
+[
+//    presenterview: 'https://github.com/stvnwrgs/presenterview',
+//    split: 'https://github.com/houqp/deck.split.js',
+    zoom: 'https://github.com/grayside/deck.zoom.js',
+]
+customextensions.each { name, uri ->
+    tasks.create(name, FrameworkTask) {
+      frameworkDir = "deck.js/extensions/$name"
+      delegate.uri = uri
+    }
+    tasks.framework.dependsOn name
+}
+
+task customjs {
+    doLast {
+        file('src/framework/deck.js/extensions/customjs/customjs.js').with {
+            parentFile.mkdirs()
+            withPrintWriter { pw ->
+                customextensions.each { name, uri ->
+                    def jsFile = file("src/framework/deck.js/extensions/$name/deck.${name}.js")
+                    if (jsFile.exists()) {
+                        pw << jsFile.text.replace("extensions/", "deckjs/deck.js/extensions/")
+                        pw.println()
+                    }
+                }
+            }
+        }
+    }
+}
+task customcss {
+    doLast {
+        file('src/framework/deck.js/extensions/customcss/customcss.css').with {
+            parentFile.mkdirs()
+            withPrintWriter { pw ->
+                customextensions.each { name, uri ->
+                    def cssFile = file("src/framework/deck.js/extensions/$name/deck.${name}.css")
+                    if (cssFile.exists()) {
+                        pw << cssFile.text
+                        pw.println()
+                    }
+                }
+            }
+        }
+    }
+}
+tasks.framework.finalizedBy customjs, customcss
+
 presentation {
     modules {
         content {
@@ -53,6 +103,9 @@ slides {
         menu: '',
         goto: '',
         status: '',
+        split: '',
+        customjs: 'deck.js/extensions/customjs/customjs.js',
+        customcss: 'deck.js/extensions/customcss/customcss.css',
     ]
     title = "Semantic Release"
     author = "Tobias Schulte"
