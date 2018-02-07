@@ -1,0 +1,7 @@
+Software Release mit "Semantic Release"
+
+Es könnte so einfach sein. Ein kleiner Bug muss gefixt werden. Schnell gefunden, schnell gefixt. Commit, Push. Und dann? Wie geht das nochmal mit dem Release-Build? Checkliste öffnen, abarbeiten, bloß keinen Fehler machen. Und zum Schluss noch die Releasenotes schreiben und die Welt über die neue Version informieren.
+
+In der JavaScript Welt ist mit Semantic-Release ein Tooling entstanden, um alle diese manuellen Tasks zu automatisieren. Und ein Gradle-Plugin ermöglicht es, dieses Vorgehen auch in Java-Projekten anzuwenden.
+
+Dieser Vortrag erläutert die Idee hinter Semantic-Release, welche Probleme gelöst werden, und wie Java Projekte vollautomatisiert releast werden können.
