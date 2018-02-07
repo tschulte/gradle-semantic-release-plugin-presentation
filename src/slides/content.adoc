@@ -93,7 +93,7 @@ Major version X (X.y.z | X > 0) MUST be incremented if any backwards incompatibl
 --
 +++<del>MAJOR</del>.<del>MINOR</del>.PATCH+++
 
-=>
+&#8659;
 
 BREAKING.FEATURE.PATCH
 --
