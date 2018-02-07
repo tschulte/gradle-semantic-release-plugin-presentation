@@ -1,3 +1,5 @@
+:zws: &#8203;
+:down-double-arrow: &#8659;
 
 == Who am I?
 
@@ -60,7 +62,7 @@ What's the new version?
 == http://semver.org/[SemVer] anyone?
 
 [.important.vcenter]
-MAJOR.MINOR.PATCH
+MAJOR.{zws}MINOR.{zws}PATCH
 
 == Patch
 
@@ -91,11 +93,11 @@ Major version X (X.y.z | X > 0) MUST be incremented if any backwards incompatibl
 
 [.important.hcenter]
 --
-+++<del>MAJOR</del>.<del>MINOR</del>.PATCH+++
++++<del>MAJOR</del>+++.{zws}+++<del>MINOR</del>+++.{zws}+++PATCH+++
 
-&#8659;
+{down-double-arrow}
 
-BREAKING.FEATURE.PATCH
+BREAKING.{zws}FEATURE.{zws}PATCH
 --
 
 == 0.x Versions?
@@ -150,7 +152,7 @@ image::images/boennemann1.png[]
 == Hauptversionsnummernerhoehungsangst
 
 [.important.vcenter]
-Hauptversions-nummern-erhöhungsangst
+Haupt&shy;versions&shy;nummern&shy;erhöhungs&shy;angst
 
 [.notitle]
 == Demo
