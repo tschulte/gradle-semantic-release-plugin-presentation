@@ -12,7 +12,6 @@ plugins {
 }
 
 apply plugin: 'application'
-apply plugin: 'com.github.jruby-gradle.base'
 apply plugin: 'org.ysb33r.vfs'
 apply plugin: 'org.asciidoctor.convert'
 
@@ -29,8 +28,6 @@ repositories {
 }
 
 dependencies {
-    gems 'rubygems:slim:3.0.8'
-    gems 'rubygems:thread_safe:0.3.5'
     runtime 'me.champeau.deck2pdf:deck2pdf:0.3.0'
 }
 
@@ -55,7 +52,7 @@ asciidoctorj {
 
 asciidoctor {
     inputs.file 'build.gradle'
-    dependsOn jrubyPrepare, download
+    dependsOn download
     sourceDir 'src/slides'
     sources {
         include 'index.adoc'
