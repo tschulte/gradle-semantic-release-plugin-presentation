@@ -2,7 +2,6 @@ buildscript {
     dependencies {
         classpath 'org.ysb33r.gradle:vfs-gradle-plugin:1.0'
         classpath 'commons-httpclient:commons-httpclient:3.1'
-        classpath 'com.github.houbie:lesscss-gradle-plugin:1.0.3-less-1.7.0'
     }
 }
 
@@ -12,7 +11,6 @@ plugins {
     id 'com.github.jruby-gradle.base' version '1.5.0'
 }
 
-apply plugin: 'lesscss'
 apply plugin: 'application'
 apply plugin: 'com.github.jruby-gradle.base'
 apply plugin: 'org.ysb33r.vfs'
@@ -51,13 +49,6 @@ task download {
     }
 }
 
-tasks.lessc {
-  sourceDir 'src/styles'
-  include "**/*.less"
-  destinationDir = "${project.buildDir}/asciidoc/revealjs/"
-  mustRunAfter project.tasks.asciidoctor
-}
-
 asciidoctorj {
   version = '1.5.6'
 }
@@ -65,7 +56,6 @@ asciidoctorj {
 asciidoctor {
     inputs.file 'build.gradle'
     dependsOn jrubyPrepare, download
-    finalizedBy lessc
     sourceDir 'src/slides'
     sources {
         include 'index.adoc'
@@ -76,6 +66,9 @@ asciidoctor {
         }
         from (downloadDir) {
             include 'reveal.js/**'
+        }
+        from(file('src/styles')) {
+            include '*.css'
         }
     }
     backends 'revealjs'
