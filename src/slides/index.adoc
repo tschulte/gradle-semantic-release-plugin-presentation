@@ -1,0 +1,4 @@
+= Semantic Release
+Tobias Schulte <tobias.schulte@gliderpilot.de>
+
+include::content.adoc[]

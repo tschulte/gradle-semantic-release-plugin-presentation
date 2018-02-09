@@ -1,121 +1,110 @@
-import com.timberglund.gradle.plugin.asciidoctor.FrameworkTask
-
 buildscript {
-    repositories {
-        jcenter()
-        maven {
-            url "https://plugins.gradle.org/m2"
-        }
-    }
     dependencies {
-        classpath "gradle.plugin.com.timberglund:asciidoctor-presentation:0.1.1"
+        classpath 'org.ysb33r.gradle:vfs-gradle-plugin:1.0'
+        classpath 'commons-httpclient:commons-httpclient:3.1'
+        classpath 'com.github.houbie:lesscss-gradle-plugin:1.0.3-less-1.7.0'
     }
 }
+
 plugins {
     id "org.ajoberstar.git-publish" version "0.2.0"
+    id 'org.asciidoctor.convert' version '1.5.3'
+    id 'com.github.jruby-gradle.base' version '1.4.0'
 }
 
-apply plugin: "com.timberglund.presentation.plugin"
+apply plugin: 'lesscss'
 apply plugin: 'application'
+apply plugin: 'com.github.jruby-gradle.base'
+apply plugin: 'org.ysb33r.vfs'
+apply plugin: 'org.asciidoctor.convert'
+
+ext {
+    revealjsVersion = '3.3.0'
+    asciidoctorBackendVersion = 'master'
+    downloadDir = new File(buildDir,'download')
+    templateDir = new File(downloadDir,'templates')
+    revealjsDir   = new File(downloadDir,'reveal.js')
+}
 
 repositories {
     jcenter()
 }
+
 dependencies {
+    gems 'rubygems:slim:3.0.8'
+    gems 'rubygems:thread_safe:0.3.5'
     runtime 'me.champeau.deck2pdf:deck2pdf:0.3.0'
+}
+
+task download {
+    description "Download extra revealjs resources"
+    outputs.dir templateDir
+    outputs.dir revealjsDir
+    doLast {
+        mkdir downloadDir
+        vfs {
+            cp "zip:https://github.com/asciidoctor/asciidoctor-reveal.js/archive/${asciidoctorBackendVersion}.zip!asciidoctor-reveal.js-${asciidoctorBackendVersion}",
+            templateDir, recursive:true, overwrite:true
+            cp "zip:https://github.com/hakimel/reveal.js/archive/${revealjsVersion}.zip!reveal.js-${revealjsVersion}",
+            revealjsDir, recursive:true, overwrite:true
+        }
+    }
+}
+
+tasks.lessc {
+  sourceDir 'src/styles'
+  include "**/*.less"
+  destinationDir = "${project.buildDir}/asciidoc/revealjs/"
+  mustRunAfter project.tasks.asciidoctor
+}
+
+asciidoctorj {
+  version = '1.5.5'
+}
+
+asciidoctor {
+    inputs.file 'build.gradle'
+    dependsOn jrubyPrepare, download
+    finalizedBy lessc
+    sourceDir 'src/slides'
+    sources {
+        include 'index.adoc'
+    }
+    resources {
+        from (file('src')) {
+            include 'images/**'
+        }
+        from (downloadDir) {
+            include 'reveal.js/**'
+        }
+    }
+    backends 'revealjs'
+    attributes \
+        'source-highlighter': 'coderay',
+        'toc': 'left',
+        'icons': 'font',
+        'setanchors': '',
+        'idprefix': '',
+        'idseparator': '-',
+        'docinfo1': '',
+        customcss: 'tschulte.css',
+        'revealjs_theme': 'beige',
+        'revealjs_transition': 'linear',
+        'revealjs_history': 'true',
+        'revealjs_slideNumber': 'true'
+    options template_dirs: [new File(templateDir,'templates').absolutePath]
 }
 
 mainClassName = "me.champeau.deck2pdf.Main"
 run {
     inputs.dir "src"
     outputs.file "$buildDir/slides.pdf"
-    dependsOn tasks.presentation
-    args "$buildDir/asciidoc/deckjs/slides.html", "$buildDir/slides.pdf"
+    dependsOn tasks.asciidoctor
+    args "$buildDir/asciidoc/revealjs/index.html", "$buildDir/index.pdf"
 }
 
 task pdf {
     dependsOn run
-}
-
-def customextensions =
-[
-//    presenterview: 'https://github.com/stvnwrgs/presenterview',
-//    split: 'https://github.com/houqp/deck.split.js',
-    zoom: 'https://github.com/grayside/deck.zoom.js',
-]
-customextensions.each { name, uri ->
-    tasks.create(name, FrameworkTask) {
-      frameworkDir = "deck.js/extensions/$name"
-      delegate.uri = uri
-    }
-    tasks.framework.dependsOn name
-}
-
-task customjs {
-    doLast {
-        file('src/framework/deck.js/extensions/customjs/customjs.js').with {
-            parentFile.mkdirs()
-            withPrintWriter { pw ->
-                customextensions.each { name, uri ->
-                    def jsFile = file("src/framework/deck.js/extensions/$name/deck.${name}.js")
-                    if (jsFile.exists()) {
-                        pw << jsFile.text.replace("extensions/", "deckjs/deck.js/extensions/")
-                        pw.println()
-                    }
-                }
-            }
-        }
-    }
-}
-task customcss {
-    doLast {
-        file('src/framework/deck.js/extensions/customcss/customcss.css').with {
-            parentFile.mkdirs()
-            withPrintWriter { pw ->
-                customextensions.each { name, uri ->
-                    def cssFile = file("src/framework/deck.js/extensions/$name/deck.${name}.css")
-                    if (cssFile.exists()) {
-                        pw << cssFile.text
-                        pw.println()
-                    }
-                }
-            }
-        }
-    }
-}
-tasks.framework.finalizedBy customjs, customcss
-
-presentation {
-    modules {
-        content {
-            title = "The content"
-            file = "content.adoc"
-        }
-    }
-}
-
-slides {
-    headers = [
-        deckjs_transition: 'fade',
-        deckjs_theme: 'tschulte',
-        scale: '',
-        navigation: '',
-        menu: '',
-        goto: '',
-        status: '',
-        split: '',
-        customjs: 'deck.js/extensions/customjs/customjs.js',
-        customcss: 'deck.js/extensions/customcss/customcss.css',
-    ]
-    title = "Semantic Release"
-    author = "Tobias Schulte"
-}
-
-lessc {
-    sourceDir "src/styles"
-    include "**/*.less"
-    destinationDir = "${buildDir}/asciidoc/deckjs/deck.js/themes/style"
-    mustRunAfter slides
 }
 
 gitPublish {
@@ -125,9 +114,9 @@ gitPublish {
 
     // what to publish, this is a standard CopySpec
     contents {
-        from "$buildDir/asciidoc/deckjs/"
+        from "$buildDir/asciidoc/revealjs/"
     }
     // message used when committing changes
     commitMessage = 'Publishing a version of the presentation' // defaults to 'Generated by gradle-git-publish'
 }
-gitPublishCopy.dependsOn tasks.presentation
+gitPublishCopy.dependsOn tasks.asciidoctor

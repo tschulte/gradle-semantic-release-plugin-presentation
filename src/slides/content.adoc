@@ -1,4 +1,3 @@
-:zws: &#8203;
 :down-double-arrow: &#8659;
 
 == Who am I?
@@ -9,26 +8,27 @@
 * tobias.schulte@gliderpilot.de
 * https://github.com/tschulte
 
-[.notitle]
 == The workflows
-
-[.important.vcenter]
-The workflows
 
 == Version in buildfile(s)
 
 Developer triggers CI (optional parameters)
 
+[cols="1a,1a"]
+|===
+|
 * Build (check if it's working)
 * Remove "-SNAPSHOT"
 * Commit and push
 * Create and push tag
 * Increase Version, append SNAPSHOT
+|
 * Commit/Push
 * Checkout tag
 * Build version
 * Publish artefacts
 * Checkout branch head
+|===
 
 === => Maven Release Plugin and some Gradle Plugins
 
@@ -44,7 +44,7 @@ Developer triggers CI (optional parameters)
 
 == But first
 
-[.important.vcenter]
+[.important]
 What's the new version?
 
 == Versioning Schemes
@@ -61,8 +61,7 @@ What's the new version?
 
 == http://semver.org/[SemVer] anyone?
 
-[.important.vcenter]
-MAJOR.{zws}MINOR.{zws}PATCH
+== MAJOR.MINOR.PATCH
 
 == Patch
 
@@ -89,15 +88,16 @@ It MAY be incremented if substantial new functionality or improvements are intro
 [quote, SemVer-specification]
 Major version X (X.y.z | X > 0) MUST be incremented if any backwards incompatible changes are introduced to the public API. It MAY include minor and patch level changes. Patch and minor version MUST be reset to 0 when major version is incremented.
 
-== http://semver.org/[SemVer] anyone?
+[%notitle]
+== BREAKING.FEATURE.PATCH
 
-[.important.hcenter]
+[.important]
 --
-+++<del>MAJOR</del>+++.{zws}+++<del>MINOR</del>+++.{zws}+++PATCH+++
++++<del>MAJOR</del>.<del>MINOR</del>.PATCH+++
 
 {down-double-arrow}
 
-BREAKING.{zws}FEATURE.{zws}PATCH
+BREAKING.FEATURE.PATCH
 --
 
 == 0.x Versions?
@@ -148,41 +148,40 @@ image::images/glazedlists-upgrade-instructions-annotated.png[]
 == Semantic Release
 image::images/boennemann1.png[]
 
-[.notitle]
 == Hauptversionsnummernerhoehungsangst
 
-[.important.vcenter]
-Haupt&shy;versions&shy;nummern&shy;erhöhungs&shy;angst
-
-[.notitle]
-== Demo
-
-[.important.vcenter]
-Demo
-
-[.notitle]
 == Demo
 
 video::images/demo.mp4[]
 
 == How does it work
 
-=== Version is inferred using the last tag (if any) and the commit messages
-=== Only creates new version if any feature or fix commit
-=== No tag yet => v1.0.0
-=== Only fixes => increment PATCH
-=== Any features => increment +++<del>MINOR</del>+++ FEATURE
-=== Any breaking features => increment +++<del>MAJOR</del>+++ BREAKING
+[%step]
+* Version is inferred using the last tag (if any) and the commit messages
+* Only creates new version if any feature or fix commit
+* No tag yet => v1.0.0
+* Only fixes => increment PATCH
+* Any features => increment +++<del>MINOR</del>+++ FEATURE
+* Any breaking features => increment +++<del>MAJOR</del>+++ BREAKING
 
 == Default Branches
 
-=== master
-=== release/1.2.x
-=== release/1.x
+[%step]
+* master
+* release/1.2.x
+* release/1.x
 
 == Remember this?
 
-Developer triggers CI +++<del>(optional parameters)</del>+++
+Developer triggers CI (optional parameters)
+
+* Build version
+* Create and push tag
+* Publish artefacts
+
+== Becomes
+
+Developer pushes to master
 
 * Build version
 * Create and push tag
@@ -190,6 +189,7 @@ Developer triggers CI +++<del>(optional parameters)</del>+++
 
 == Possible workflows
 
-=== Work on master => every push triggers new version
-=== Git-Flow, GitHub-Flow, etc. => merge to master (or release/1.x) triggers new version
-=== (RCx-versions)
+[%step]
+* Work on master => every push triggers new version
+* Git-Flow, GitHub-Flow, etc. => merge to master (or release/1.x) triggers new version
+* (RCx-versions)
