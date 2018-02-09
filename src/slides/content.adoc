@@ -4,9 +4,9 @@
 
 * Java developer since 2001
 * Team Lead at https://www.kratzer-automation.com/[Kratzer Automation AG]
-* http://twitter.com/tobias_schulte[@tobias_schulte]
-* tobias.schulte@gliderpilot.de
-* https://github.com/tschulte
+* icon:twitter[] http://twitter.com/tobias_schulte[@tobias_schulte]
+* icon:envelope[] tobias.schulte@gliderpilot.de
+* icon:github[] https://github.com/tschulte
 
 == The workflows
 
