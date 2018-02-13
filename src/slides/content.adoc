@@ -148,7 +148,7 @@ image::images/glazedlists-upgrade-instructions-annotated.png[]
 == Semantic Release
 image::images/boennemann1.png[]
 
-== Hauptversionsnummernerhoehungsangst
+== Haupt&shy;versions&shy;nummern&shy;erhöhungs&shy;angst
 
 == Demo
 
