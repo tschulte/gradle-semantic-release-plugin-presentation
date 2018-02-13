@@ -4,7 +4,6 @@ plugins {
     id 'com.github.jruby-gradle.base' version '1.5.0'
 }
 
-apply plugin: 'application'
 apply plugin: 'org.asciidoctor.convert'
 
 ext {
@@ -34,10 +33,11 @@ repositories {
 configurations {
     asciidoctorBackend
     revealjs
+    pdf
 }
 
 dependencies {
-    runtime 'me.champeau.deck2pdf:deck2pdf:0.3.0'
+    pdf 'me.champeau.deck2pdf:deck2pdf:0.3.0'
     asciidoctorBackend "asciidoctor:asciidoctor-reveal.js:$asciidoctorBackendVersion@zip"
     revealjs "hakimel:reveal.js:$revealjsVersion@zip"
 }
@@ -94,16 +94,13 @@ asciidoctor {
     options template_dirs: [new File(downloadDir, "asciidoctor-reveal.js-$asciidoctorBackendVersion/templates").absolutePath]
 }
 
-mainClassName = "me.champeau.deck2pdf.Main"
-run {
+task pdf(type: JavaExec) {
     inputs.dir "src"
     outputs.file "$buildDir/slides.pdf"
     dependsOn tasks.asciidoctor
     args "$buildDir/asciidoc/revealjs/index.html", "$buildDir/index.pdf"
-}
-
-task pdf {
-    dependsOn run
+    classpath = configurations.pdf
+    main = "me.champeau.deck2pdf.Main"
 }
 
 gitPublish {
