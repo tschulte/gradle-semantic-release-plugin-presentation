@@ -104,9 +104,9 @@ task pdf(type: JavaExec) {
     inputs.dir "src"
     outputs.file "$buildDir/slides.pdf"
     dependsOn tasks.asciidoctor
-    args "$buildDir/asciidoc/revealjs/index.html", "$buildDir/index.pdf"
     classpath = configurations.pdf
     main = "me.champeau.deck2pdf.Main"
+    args "--profile=revealjs", "$buildDir/asciidoc/revealjs/index.html", "$buildDir/index.pdf"
 }
 
 gitPublish {
@@ -128,6 +128,7 @@ task asciidoctorZip(type: Zip) {
 }
 artifacts {
     asciidoctorZip
+    pdf
 }
 
 tasks.release {
@@ -139,5 +140,6 @@ semanticRelease {
     repo {
         ghToken = project.ext.ghToken
         releaseAsset asciidoctorZip, label: 'the reveal.js presentation', contentType: 'application/zip'
+        releaseAsset pdf.outputs.files.singleFile, builtBy: pdf, label: 'the PDF of the presentation', contentType: 'application/pdf'
     }
 }
