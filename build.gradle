@@ -1,6 +1,6 @@
 plugins {
     id 'de.gliderpilot.semantic-release' version '1.4.0'
-    id "org.ajoberstar.git-publish" version "0.3.2"
+    id 'org.ajoberstar.github-pages' version '1.7.2'
     id 'org.asciidoctor.convert' version '1.5.6'
     id 'com.github.jruby-gradle.base' version '1.5.0'
 }
@@ -109,13 +109,13 @@ task pdf(type: JavaExec) {
     args "--profile=revealjs", "$buildDir/asciidoc/revealjs/index.html", "$buildDir/index.pdf"
 }
 
-gitPublish {
+githubPages {
     repoUri = "git@github.com:tschulte/gradle-semantic-release-plugin-presentation"
     // branch will be created if it doesn't exist
-    branch = 'gh-pages'
+    targetBranch = 'gh-pages'
 
     // what to publish, this is a standard CopySpec
-    contents {
+    pages {
         from asciidoctor
     }
     // message used when committing changes
@@ -133,7 +133,7 @@ artifacts {
 
 tasks.release {
     dependsOn asciidoctor
-    finalizedBy gitPublishPush
+    finalizedBy publishGhPages
 }
 
 semanticRelease {
