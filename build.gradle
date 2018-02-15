@@ -101,12 +101,16 @@ asciidoctor {
 }
 
 task pdf(type: JavaExec) {
-    inputs.dir "src"
-    outputs.file "$buildDir/slides.pdf"
+    def outputFile = file("$buildDir/distributions/${project.name}-${project.version}.pdf")
+    inputs.files tasks.asciidoctor
+    outputs.file outputFile
     dependsOn tasks.asciidoctor
     classpath = configurations.pdf
     main = "me.champeau.deck2pdf.Main"
-    args "--profile=revealjs", "$buildDir/asciidoc/revealjs/index.html", "$buildDir/index.pdf"
+    args "--profile=revealjs", "$buildDir/asciidoc/revealjs/index.html", outputFile
+    doFirst {
+        outputFile.parentFile.mkdirs()
+    }
 }
 
 githubPages {
@@ -123,7 +127,6 @@ githubPages {
 }
 
 task asciidoctorZip(type: Zip) {
-    classifier = 'presentation'
     from asciidoctor
 }
 artifacts {
