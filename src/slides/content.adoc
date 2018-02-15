@@ -10,7 +10,7 @@
 
 == The workflows
 
-== Version in buildfile(s)
+=== Version in buildfile(s)
 
 Developer triggers CI (optional parameters)
 
@@ -32,7 +32,7 @@ Developer triggers CI (optional parameters)
 
 === => Maven Release Plugin and some Gradle Plugins
 
-== Version in VCS
+=== Version in VCS
 
 Developer triggers CI (optional parameters)
 
@@ -47,7 +47,7 @@ Developer triggers CI (optional parameters)
 [.important]
 What's the new version?
 
-== Versioning Schemes
+=== Versioning Schemes
 
 * ${major}
 * ${major}.${minor}
@@ -61,35 +61,35 @@ What's the new version?
 
 == http://semver.org/[SemVer] anyone?
 
-== MAJOR.MINOR.PATCH
+=== MAJOR.MINOR.PATCH
 
-== Patch
+=== Patch
 
 [quote, SemVer-specification]
 Patch version Z (x.y.Z | x > 0) MUST be incremented if only backwards compatible bug fixes are introduced. A bug fix is defined as an internal change that fixes incorrect behavior.
 
-== Minor
+=== Minor
 
 [quote, SemVer-specification]
 Minor version Y (x.Y.z | x > 0) MUST be incremented if new, backwards compatible functionality is introduced to the public API.
 
-== Minor
+=== Minor
 
 [quote, SemVer-specification]
 It MUST be incremented if any public API functionality is marked as deprecated.
 
-== Minor
+=== Minor
 
 [quote, SemVer-specification]
 It MAY be incremented if substantial new functionality or improvements are introduced within the private code. It MAY include patch level changes. Patch version MUST be reset to 0 when minor version is incremented.
 
-== Major
+=== Major
 
 [quote, SemVer-specification]
 Major version X (X.y.z | X > 0) MUST be incremented if any backwards incompatible changes are introduced to the public API. It MAY include minor and patch level changes. Patch and minor version MUST be reset to 0 when major version is incremented.
 
 [%notitle]
-== BREAKING.FEATURE.PATCH
+=== BREAKING.FEATURE.PATCH
 
 [.important]
 --
@@ -100,7 +100,7 @@ Major version X (X.y.z | X > 0) MUST be incremented if any backwards incompatibl
 BREAKING.FEATURE.PATCH
 --
 
-== 0.x Versions?
+=== 0.x Versions?
 
 [quote, SemVer-specification]
 Major version zero (0.y.z) is for initial development. Anything may change at any time. The public API should not be considered stable.
@@ -109,46 +109,50 @@ Major version zero (0.y.z) is for initial development. Anything may change at an
 
 image::images/noReleasenotes.png[]
 
-== Use Bugtracker
+=== Use Bugtracker
 
 image::images/glazedlists-automatic-releasenotes.png[]
 
-== Use Commit message conventions ...
+=== Use Commit message conventions ...
 
 image::images/angular-commit-message-convention.png[]
 
-== ... to generate ...
+=== ... to generate ...
 
 image::images/angular-commit-message-convention-annotated.png[]
 
-== ... the release notes
+=== ... the release notes
 
 image::images/breaking-patch-version.png[]
 
 == Breaking changes sneaking in
 
+image::images/breaking-patch-version.png[]
+
+=== Breaking changes sneaking in
+
 image::images/breaking-patch-version-annotated.png[]
 
-== Breaking changes sneaking in
+=== Breaking changes sneaking in
 
 image::images/glazedlists-releasenotes.png[]
 
-== Breaking changes sneaking in
+=== Breaking changes sneaking in
 
 image::images/glazedlists-releasenotes-annotated.png[]
 
-== Breaking changes sneaking in
+=== Breaking changes sneaking in
 
 image::images/glazedlists-upgrade-instructions.png[]
 
-== Breaking changes sneaking in
+=== Breaking changes sneaking in
 
 image::images/glazedlists-upgrade-instructions-annotated.png[]
 
-== Semantic Release
+== https://github.com/semantic-release/semantic-release[Semantic Release]
 image::images/boennemann1.png[]
 
-== Haupt&shy;versions&shy;nummern&shy;erhöhungs&shy;angst
+=== Haupt&shy;versions&shy;nummern&shy;erhöhungs&shy;angst
 
 == Demo
 
@@ -179,7 +183,7 @@ Developer triggers CI (optional parameters)
 * Create and push tag
 * Publish artefacts
 
-== Becomes
+=== Becomes
 
 Developer pushes to master
 
