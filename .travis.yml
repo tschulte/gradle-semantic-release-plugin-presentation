@@ -19,4 +19,4 @@ before_install:
 install:
   - echo "skip default gradlew assemble"
 script:
-- '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && xvfb-run ./gradlew release --stacktrace || xvfb-run ./gradlew pdf --stacktrace'
+- '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && xvfb-run ./gradlew release -Dorg.ajoberstar.grgit.auth.username=${GH_TOKEN} -Dorg.ajoberstar.grgit.auth.password --stacktrace || xvfb-run ./gradlew pdf --stacktrace'
