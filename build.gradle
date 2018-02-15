@@ -65,7 +65,6 @@ asciidoctorj {
 }
 
 asciidoctor {
-    inputs.file 'build.gradle'
     dependsOn download
     sourceDir 'src/slides'
     sources {
