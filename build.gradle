@@ -106,7 +106,13 @@ task pdf(type: JavaExec) {
     dependsOn tasks.asciidoctor
     classpath = configurations.pdf
     main = "me.champeau.deck2pdf.Main"
-    args "--profile=revealjs", "$buildDir/asciidoc/revealjs/index.html", outputFile
+    args \
+        "--fontsdir=${buildDir}/asciidoc/revealjs/reveal.js/lib/font/source-sans-pro",
+        "--width=1920",
+        "--height=1200",
+        "--profile=revealjs",
+        "$buildDir/asciidoc/revealjs/index.html",
+        outputFile
     doFirst {
         outputFile.parentFile.mkdirs()
     }
