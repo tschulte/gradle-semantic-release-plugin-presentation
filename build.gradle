@@ -47,6 +47,7 @@ dependencies {
     pdf 'me.champeau.deck2pdf:deck2pdf:0.3.0'
     asciidoctorBackend "asciidoctor:asciidoctor-reveal.js:$asciidoctorBackendVersion@zip"
     revealjs "hakimel:reveal.js:$revealjsVersion@zip"
+    asciidoctor "org.asciidoctor:asciidoctorj-diagram:1.5.4.1"
 }
 
 task configureDownload {
@@ -81,6 +82,7 @@ asciidoctor {
         }
     }
     backends 'revealjs'
+    requires "asciidoctor-diagram"
     attributes \
         'source-highlighter': 'coderay',
         'toc': 'left',
