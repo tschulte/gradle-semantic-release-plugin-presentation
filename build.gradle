@@ -67,20 +67,17 @@ asciidoctorj {
 
 asciidoctor {
     dependsOn download
-    sourceDir 'src/slides'
     sources {
         include 'index.adoc'
     }
     resources {
-        from (file('src')) {
-            include 'images/**'
+        from(sourceDir) {
+            include '*.css'
+            include 'images/*'
         }
         from (new File(downloadDir, "reveal.js-$revealjsVersion")) {
             include '**'
             into "/reveal.js"
-        }
-        from(file('src/styles')) {
-            include '*.css'
         }
     }
     backends 'revealjs'
