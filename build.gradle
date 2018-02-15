@@ -119,7 +119,6 @@ task pdf(type: JavaExec) {
 }
 
 githubPages {
-    repoUri = "git@github.com:tschulte/gradle-semantic-release-plugin-presentation"
     // branch will be created if it doesn't exist
     targetBranch = 'gh-pages'
 
