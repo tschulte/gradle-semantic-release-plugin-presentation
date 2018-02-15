@@ -1,8 +1,4 @@
 sudo: false
-addons:
-  apt:
-    packages:
-    - git
 language: groovy
 jdk: oraclejdk8
 env: TERM=dumb
