@@ -53,7 +53,6 @@ dependencies {
 task configureDownload {
     doLast {
         tasks.download.from zipTree(configurations.asciidoctorBackend.singleFile)
-        tasks.download.from zipTree(configurations.revealjs.singleFile)
     }
 }
 
@@ -76,9 +75,12 @@ asciidoctor {
             include '*.css'
             include 'images/*'
         }
-        from (new File(downloadDir, "reveal.js-$revealjsVersion")) {
-            include '**'
-            into "/reveal.js"
+    }
+    doFirst {
+        resources {
+            from(zipTree(configurations.revealjs.singleFile)) {
+                include '**'
+            }
         }
     }
     backends 'revealjs'
@@ -89,6 +91,7 @@ asciidoctor {
         'idseparator': '-',
         'docinfo1': '',
         customcss: 'tschulte.css',
+        revealjsdir: "reveal.js-${revealjsVersion}",
         'revealjs_theme': 'white',
         'revealjs_transition': 'slide',
         'revealjs_history': 'true',
