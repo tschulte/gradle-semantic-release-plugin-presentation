@@ -1,5 +1,6 @@
 = Semantic Release
 Tobias Schulte <tobias.schulte@gliderpilot.de>
 {project-version}
+include::attributes.adoc[]
 
 include::content.adoc[]

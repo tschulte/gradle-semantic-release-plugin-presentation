@@ -84,9 +84,6 @@ asciidoctor {
     backends 'revealjs'
     requires "asciidoctor-diagram"
     attributes \
-        'source-highlighter': 'coderay',
-        'toc': 'left',
-        'icons': 'font',
         'setanchors': '',
         'idprefix': '',
         'idseparator': '-',

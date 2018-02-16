@@ -1,3 +1,4 @@
+include::attributes.adoc[]
 :down-double-arrow: &#8659;
 
 == Who am I?
@@ -107,56 +108,56 @@ Major version zero (0.y.z) is for initial development. Anything may change at an
 
 == Release notes anyone
 
-image::images/noReleasenotes.png[]
+image::noReleasenotes.png[]
 
 === Use Bugtracker
 
-image::images/glazedlists-automatic-releasenotes.png[]
+image::glazedlists-automatic-releasenotes.png[]
 
 === Use Commit message conventions ...
 
-image::images/angular-commit-message-convention.png[]
+image::angular-commit-message-convention.png[]
 
 === ... to generate ...
 
-image::images/angular-commit-message-convention-annotated.png[]
+image::angular-commit-message-convention-annotated.png[]
 
 === ... the release notes
 
-image::images/breaking-patch-version.png[]
+image::breaking-patch-version.png[]
 
 == Breaking changes sneaking in
 
-image::images/breaking-patch-version.png[]
+image::breaking-patch-version.png[]
 
 === Breaking changes sneaking in
 
-image::images/breaking-patch-version-annotated.png[]
+image::breaking-patch-version-annotated.png[]
 
 === Breaking changes sneaking in
 
-image::images/glazedlists-releasenotes.png[]
+image::glazedlists-releasenotes.png[]
 
 === Breaking changes sneaking in
 
-image::images/glazedlists-releasenotes-annotated.png[]
+image::glazedlists-releasenotes-annotated.png[]
 
 === Breaking changes sneaking in
 
-image::images/glazedlists-upgrade-instructions.png[]
+image::glazedlists-upgrade-instructions.png[]
 
 === Breaking changes sneaking in
 
-image::images/glazedlists-upgrade-instructions-annotated.png[]
+image::glazedlists-upgrade-instructions-annotated.png[]
 
 == https://github.com/semantic-release/semantic-release[Semantic Release]
-image::images/boennemann1.png[]
+image::boennemann1.png[]
 
 === Haupt&shy;versions&shy;nummern&shy;erhöhungs&shy;angst
 
 == Demo
 
-video::images/demo.mp4[]
+video::demo.mp4[]
 
 == How does it work
 
