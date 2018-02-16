@@ -89,7 +89,6 @@ asciidoctor {
         'setanchors': '',
         'idprefix': '',
         'idseparator': '-',
-        'docinfo1': '',
         customcss: 'tschulte.css',
         revealjsdir: "reveal.js-${revealjsVersion}",
         'revealjs_theme': 'white',
