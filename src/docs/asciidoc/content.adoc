@@ -194,7 +194,46 @@ Developer pushes to master
 
 == Possible workflows
 
-[%step]
-* Work on master => every push triggers new version
-* Git-Flow, GitHub-Flow, etc. => merge to master (or release/1.x) triggers new version
-* (RCx-versions)
+== Work on master
+
+=== New local feature commit
+
++++<canvas id="masterOneFeature"></canvas>+++
+
+=== Push
+
++++<canvas id="originMasterOneFeature"></canvas>+++
+
+=== New local bugfix commit
+
++++<canvas id="masterOneFix"></canvas>+++
+
+=== Push
+
++++<canvas id="originMasterOneFix"></canvas>+++
+
+=== Multiple local commits
+
++++<canvas id="masterMultiple"></canvas>+++
+
+=== Push
+
++++<canvas id="originMasterMultiple"></canvas>+++
+
+===  => every push triggers new version
+
+(if bugfix or feature commit since last tag)
+
+== Git-Flow, GitHub-Flow, etc.
+
+=== With Release-Branches
+
++++<canvas id="gitflow"></canvas>+++
+
+=== Without Release-Branches
+
++++<canvas id="gitflowWithoutRelease"></canvas>+++
+
+=== => merge to master (or release/1.x) triggers new version
+
+== (RCx-versions)

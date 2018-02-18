@@ -76,6 +76,7 @@ asciidoctor {
     resources {
         from(sourceDir) {
             include '*.css'
+            include '*.js'
             include 'images/*'
         }
     }
