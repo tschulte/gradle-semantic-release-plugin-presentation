@@ -15,6 +15,7 @@ setExtValue('ghToken', 'GH_TOKEN')
 ext {
     revealjsVersion = '3.6.0'
     asciidoctorBackendVersion = '1.1.3'
+    gitgraphjsVersion = '1.11.4'
     downloadDir = new File(buildDir,'download')
     htmlOutputDir = file("${buildDir}/asciidoc/revealjs/")
 }
@@ -40,6 +41,7 @@ repositories {
 configurations {
     asciidoctorBackend
     revealjs
+    gitgraphjs
     pdf
 }
 
@@ -47,6 +49,7 @@ dependencies {
     pdf 'me.champeau.deck2pdf:deck2pdf:0.3.0'
     asciidoctorBackend "asciidoctor:asciidoctor-reveal.js:$asciidoctorBackendVersion@zip"
     revealjs "hakimel:reveal.js:$revealjsVersion@zip"
+    gitgraphjs "nicoespeon:gitgraph.js:$gitgraphjsVersion@zip"
     asciidoctor "org.asciidoctor:asciidoctorj-diagram:1.5.4.1"
 }
 
@@ -78,8 +81,13 @@ asciidoctor {
     }
     doFirst {
         resources {
-            from(zipTree(configurations.revealjs.singleFile)) {
-                include '**'
+            from(zipTree(configurations.revealjs.singleFile))
+            from(zipTree(configurations.gitgraphjs.singleFile)) {
+                include "*/build/*"
+                includeEmptyDirs = false
+                eachFile {
+                    path = "gitgraph.js/$name"
+                }
             }
         }
     }
