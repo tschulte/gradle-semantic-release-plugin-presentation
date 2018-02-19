@@ -18,6 +18,7 @@ ext {
     gitgraphjsVersion = '1.11.4'
     downloadDir = new File(buildDir,'download')
     htmlOutputDir = file("${buildDir}/asciidoc/revealjs/")
+    pdfHtmlOutputDir = file("${buildDir}/asciidoc/revealjs-pdf/")
 }
 
 repositories {
@@ -92,20 +93,14 @@ asciidoctor {
             }
         }
     }
-    backends 'revealjs'
+    backends 'revealjs', 'revealjs-pdf'
     requires "asciidoctor-diagram"
     attributes \
         'setanchors': '',
         'idprefix': '',
         'idseparator': '-',
         customcss: 'tschulte.css',
-        revealjsdir: "reveal.js-${revealjsVersion}",
-        'revealjs_theme': 'white',
-        'revealjs_transition': 'slide',
-        'revealjs_history': 'true',
-        'revealjs_slideNumber': 'true',
-        revealjs_width: '1920',
-        revealjs_height: '1080'
+        revealjsdir: "reveal.js-${revealjsVersion}"
     options template_dirs: [new File(downloadDir, "asciidoctor-reveal.js-$asciidoctorBackendVersion/templates").absolutePath]
 }
 
@@ -116,11 +111,11 @@ task pdf(type: JavaExec) {
     classpath = configurations.pdf
     main = "me.champeau.deck2pdf.Main"
     args \
-        "--fontsdir=${htmlOutputDir}/reveal.js/lib/font/source-sans-pro",
+        "--fontsdir=${pdfHtmlOutputDir}/reveal.js-${revealjsVersion}/lib/font/source-sans-pro",
         "--width=1920",
         "--height=1200",
         "--profile=revealjs",
-        "$htmlOutputDir/index.html",
+        "$pdfHtmlOutputDir/index.html",
         outputFile
     doFirst {
         outputFile.parentFile.mkdirs()
@@ -148,7 +143,7 @@ artifacts {
 }
 
 tasks.release {
-    dependsOn asciidoctor
+    dependsOn pdf
     finalizedBy publishGhPages
 }
 
