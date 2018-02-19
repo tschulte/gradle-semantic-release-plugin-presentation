@@ -2,6 +2,8 @@
 :imagesdir: images
 :toc: left
 :icons: font
+:iconfont-name: Font-Awesome/css/font-awesome.min
+:iconfont-remote!:
 :linkattrs:
 :prewrap:
 :docinfo1:

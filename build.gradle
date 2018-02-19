@@ -16,6 +16,7 @@ ext {
     revealjsVersion = '3.6.0'
     asciidoctorBackendVersion = '1.1.3'
     gitgraphjsVersion = '1.11.4'
+    fontAwesomeVersion = '4.7.0'
     downloadDir = new File(buildDir,'download')
     htmlOutputDir = file("${buildDir}/asciidoc/revealjs/")
     pdfHtmlOutputDir = file("${buildDir}/asciidoc/revealjs-pdf/")
@@ -44,6 +45,7 @@ configurations {
     revealjs
     gitgraphjs
     pdf
+    fontAwesome
 }
 
 dependencies {
@@ -52,6 +54,7 @@ dependencies {
     revealjs "hakimel:reveal.js:$revealjsVersion@zip"
     gitgraphjs "nicoespeon:gitgraph.js:$gitgraphjsVersion@zip"
     asciidoctor "org.asciidoctor:asciidoctorj-diagram:1.5.4.1"
+    fontAwesome "FortAwesome:Font-Awesome:$fontAwesomeVersion@zip"
 }
 
 task configureDownload {
@@ -89,6 +92,14 @@ asciidoctor {
                 includeEmptyDirs = false
                 eachFile {
                     path = "gitgraph.js/$name"
+                }
+            }
+            from(zipTree(configurations.fontAwesome.singleFile)) {
+                include "*/css/*"
+                include "*/fonts/*"
+                includeEmptyDirs = false
+                eachFile {
+                    path -= "-$fontAwesomeVersion"
                 }
             }
         }
