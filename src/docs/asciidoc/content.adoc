@@ -18,18 +18,27 @@ Developer triggers CI (optional parameters)
 [cols="1a,1a"]
 |===
 |
-* Build (check if it's working)
-* Remove "-SNAPSHOT"
+* Build "`-SNAPSHOT`" (check if it's working)
+* Remove "`-SNAPSHOT`"
 * Commit and push
 * Create and push tag
-* Increase Version, append SNAPSHOT
+* Increase Version, append "`-SNAPSHOT`"
 |
 * Commit/Push
 * Checkout tag
 * Build version
-* Publish artefacts
+* Publish artifacts
 * Checkout branch head
 |===
+
+[NOTE.speaker]
+--
+Problems:
+
+* Needs to build twice
+* Needs to change build-scripts
+=> Potential merge conflicts
+--
 
 === => Maven Release Plugin and some Gradle Plugins
 
@@ -40,6 +49,11 @@ Developer triggers CI (optional parameters)
 * Build version
 * Create and push tag
 * Publish artefacts
+
+[NOTE.speaker]
+--
+Version either inferred from last tag or given as parameter
+--
 
 === => the other Gradle Plugins
 
@@ -59,6 +73,10 @@ What's the new version?
 * TeX
 * Windows
 * https://en.wikipedia.org/wiki/Software_versioning[...]
+
+[NOTE.speaker]
+TeX: Kreiszahl Pi
+Windows (3.11, 95, 98, Millenium, NT 4.0, 2000, XP, Vista, 7, 10)
 
 == http://semver.org/[SemVer] anyone?
 
@@ -110,37 +128,82 @@ Major version zero (0.y.z) is for initial development. Anything may change at an
 
 image::noReleasenotes.png[]
 
+[NOTE.speaker]
+--
+No release notes at all.
+--
+
 === Use Bugtracker
 
 image::glazedlists-automatic-releasenotes.png[]
+
+[NOTE.speaker]
+--
+Just point to a filtered bug list.
+--
 
 === Use Commit message conventions ...
 
 image::angular-commit-message-convention.png[]
 
+[NOTE.speaker]
+--
+Angular.js defined commit message conventions ...
+--
+
 === ... to generate ...
 
 image::angular-commit-message-convention-annotated.png[]
+
+[NOTE.speaker]
+--
+... to generate releasenotes.
+--
 
 === ... the release notes
 
 image::breaking-patch-version.png[]
 
+[NOTE.speaker]
+--
+These auto generated release notes are attached to the Github releases.
+--
+
 == Breaking changes sneaking in
 
 image::breaking-patch-version.png[]
+
+[NOTE.speaker]
+--
+But since the creation of the version does not parse the commit messages, ...
+--
 
 === Breaking changes sneaking in
 
 image::breaking-patch-version-annotated.png[]
 
+[NOTE.speaker]
+--
+... it is possible to create bugfix versions that have features, or worse, even introduce breaking changes.
+--
+
 === Breaking changes sneaking in
 
 image::glazedlists-releasenotes.png[]
 
+[NOTE.speaker]
+--
+Other examples from the Java world, ...
+--
+
 === Breaking changes sneaking in
 
 image::glazedlists-releasenotes-annotated.png[]
+
+[NOTE.speaker]
+--
+include prominent libraries as GlazedLists, ...
+--
 
 === Breaking changes sneaking in
 
@@ -153,7 +216,19 @@ image::glazedlists-upgrade-instructions-annotated.png[]
 == https://github.com/semantic-release/semantic-release[Semantic Release]
 image::boennemann1.png[]
 
+[NOTE.speaker]
+--
+Stephan Bönnemann created a build process called "`Semantic Release`" to mitigate this problem.
+
+He created a word for the reason, why so many feature or patch versions also contain breaking changes: ...
+--
+
 === Haupt&shy;versions&shy;nummern&shy;erhöhungs&shy;angst
+
+[NOTE.speaker]
+--
+Because I wanted to be able to use that concept for my builds, I implemented his ideas as a Gradle plugin.
+--
 
 == Demo
 
@@ -161,7 +236,6 @@ video::demo.mp4[]
 
 == How does it work
 
-[%step]
 * Version is inferred using the last tag (if any) and the commit messages
 * Only creates new version if any feature or fix commit
 * No tag yet => v1.0.0
@@ -171,10 +245,18 @@ video::demo.mp4[]
 
 == Default Branches
 
-[%step]
 * master
 * release/1.2.x
 * release/1.x
+
+[NOTE.speaker]
+--
+By default the plugin does only create versions on master and on release branches.
+
+On release/1.2.x it would only allow bugfix commits. If a feature commit was introduced, the release will fail.
+
+On release/1.x it would only allow bugfix and feature commits, but no BREAKING CHANGES. If a breaking change was introduced, the release will fail.
+--
 
 == Remember this?
 
@@ -236,4 +318,43 @@ Developer pushes to master
 
 === => merge to master (or release/1.x) triggers new version
 
-== (RCx-versions)
+== Customizations
+
+=== RCx-versions
+
+[source,groovy]
+----
+release {
+    versionStrategy semanticRelease.releaseStrategy.copyWith(
+        type: 'rc', // <1>
+        selector: { SemVerStrategyState state ->
+            !state.repoDirty && state.currentBranch.name ==~ /rc\/.*/ &&
+                    semanticRelease.semanticStrategy.canRelease(state) &&
+                    project.gradle.startParameter.taskNames.find { it == 'release' }
+        },
+        preReleaseStrategy: StrategyUtil.all({
+            it.copyWith(inferredPreRelease: 'rc')
+        } as PartialSemVerStrategy, Strategies.PreRelease.COUNT_INCREMENTED)
+    )
+}
+----
+<1> the type is important, without type you would replace the default strategy
+
+[NOTE.speaker]
+--
+By default, pre-release versions will not be generated, but it is possible, to add this to the build.
+--
+
+=== Add "`-FINAL`" to the release
+
+[source,groovy]
+----
+release {
+    // replace the default strategy to add '-FINAL' to the version
+    versionStrategy semanticRelease.releaseStrategy.copyWith{
+        preReleaseStrategy: { it.copyWith(inferredPreRelease: 'FINAL') }
+    }
+}
+----
+
+== Questions?
